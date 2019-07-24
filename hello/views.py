@@ -16,8 +16,8 @@ def index(request):
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.binary_location = '/app/.apt/usr/bin/google-chrome'
-
-    driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"),   chrome_options=chrome_options)
+    print(os.path.abspath("chromedriver"))
+    driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"))
     print("starting web driver")
     driver.implicitly_wait(30)
     driver.maximize_window()
