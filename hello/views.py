@@ -13,11 +13,12 @@ import requests
 # Create your views here.
 def index(request):
     # create a new Firefox session
+    chrome_bin = os.environ.get('GOOGLE_CHROME_SHIM', None)
     chrome_options = Options()
     chrome_options.add_argument("--headless")
-    chrome_options.binary_location = '/app/.apt/usr/bin/google-chrome'
+    chrome_options.binary_location = chrome_bin
     print(os.path.abspath("chromedriver"))
-    driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"))
+    driver = webdriver.Chrome(executable_path="chromedriver", chrome_options=chrome_options)
     print("starting web driver")
     driver.implicitly_wait(30)
     driver.maximize_window()
