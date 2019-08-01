@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from selenium.webdriver.chrome.options import Options
+from threading import Thread
 
 import os
 import requests
@@ -15,14 +16,27 @@ def index(request):
     # create a new Firefox session
     chrome_bin = os.environ.get('GOOGLE_CHROME_SHIM', None)
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless")
     chrome_options.binary_location = chrome_bin
     print(os.path.abspath("chromedriver"))
     driver = webdriver.Chrome(executable_path="chromedriver", chrome_options=chrome_options)
     print("starting web driver")
-    driver.implicitly_wait(3)
-    driver.get("http://rmaggiecai.com/")
-    return HttpResponse(driver.page_source)
+    driver.get("https://www.renttherunway.com/")
+
+    email = "Magz28@gmail.com"
+    password = "6nkwNqpQ"
+
+    login_button = driver.find_elements_by_class_name("standalone")[0]
+    login_button.click()
+    # Thread.sleep(1000);
+    username_field = driver.find_elements_by_id("username")[0]
+    username_field.send_keys(email)
+    password_field = driver.find_elements_by_id("password")[0]
+    password_field.send_keys(password)
+
+    login_button = driver.find_element_by_css_selector("#login-form .btn")
+    login_button.click()
+
 
     # driver.maximize_window()
     #
