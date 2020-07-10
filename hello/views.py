@@ -21,21 +21,23 @@ def index(request):
     print(os.path.abspath("chromedriver"))
     driver = webdriver.Chrome(executable_path="chromedriver", chrome_options=chrome_options)
     print("starting web driver")
-    driver.get("https://www.renttherunway.com/")
+    driver.get("https://spotery.com/search?psLangId=EN&psAddrCity=San%20Francisco&psSourceFlow=SPOT&psIsGridView=false")
+    courts_table = driver.find_element_by_id("pt1:pgl17").get_attribute("innerHTML")
+    print (courts_table)
+    driver.quit()
 
-    email = "Magz28@gmail.com"
-    password = "6nkwNqpQ"
+    return HttpResponse(courts_table)
 
-    login_button = driver.find_elements_by_class_name("standalone")[0]
-    login_button.click()
-    # Thread.sleep(1000);
-    username_field = driver.find_elements_by_id("username")[0]
-    username_field.send_keys(email)
-    password_field = driver.find_elements_by_id("password")[0]
-    password_field.send_keys(password)
-
-    login_button = driver.find_element_by_css_selector("#login-form .btn")
-    login_button.click()
+    # login_button = driver.find_elements_by_class_name("standalone")[0]
+    # login_button.click()
+    # # Thread.sleep(1000);
+    # username_field = driver.find_element_by_id("username")[0]
+    # username_field.send_keys(email)
+    # password_field = driver.find_element_by_id("password")[0]
+    # password_field.send_keys(password)
+    #
+    # login_button = driver.find_element_by_css_selector("#login-form .btn")
+    # login_button.click()
 
 
     # driver.maximize_window()
