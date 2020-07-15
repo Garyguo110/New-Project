@@ -10,6 +10,7 @@ from threading import Thread
 
 import os
 import requests
+import time
 
 # Create your views here.
 def index(request):
@@ -23,10 +24,13 @@ def index(request):
     print("starting web driver")
     driver.get("https://spotery.com/search?psLangId=EN&psAddrCity=San%20Francisco&psSourceFlow=SPOT&psIsGridView=false")
     courts_table = driver.find_element_by_id("pt1:pgl17").get_attribute("innerHTML")
-    print (courts_table)
-    driver.quit()
-
-    return HttpResponse(courts_table)
+    # windowId = driver.find_element_by_id("f1").get_attribute("innerHTML")
+    # print (windowId)
+    next_button = driver.find_element_by_id("pt1:lNext::icon")
+    next_button.click()
+    time.sleep(5);
+    second_courts_table = driver.find_element_by_id("pt1:pgl17").get_attribute("innerHTML")
+    return HttpResponse(second_courts_table)
 
     # login_button = driver.find_elements_by_class_name("standalone")[0]
     # login_button.click()
